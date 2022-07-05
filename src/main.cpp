@@ -4,12 +4,12 @@
 #include <Adafruit_SH1106.h>
 #include <Wire.h>
 #include <SPI.h>
-//===================================================================== OLED
+//==================================================================================================== OLED
 #define OLED_RESET -1
 Adafruit_SH1106 display(OLED_RESET);
-//===================================================================== Anoying Dog Hat Frames
-// 'Hat_Frame0', 27x27px
-const unsigned char epd_bitmap_Hat_Frame0 [] PROGMEM = {
+//==================================================================================================== Anoying Dog Dance Frames
+// 'Dance_Frame0', 27x27px
+const unsigned char epd_bitmap_Dance_Frame0 [] PROGMEM = {
 	0x00, 0x60, 0x00, 0x00, 0x00, 0x90, 0x00, 0x00, 0x01, 0x08, 0x00, 0x00, 0x01, 0x08, 0x00, 0x00, 
 	0x02, 0x04, 0x00, 0x00, 0x02, 0x04, 0x00, 0x00, 0x7d, 0x6b, 0xf8, 0x00, 0x80, 0x00, 0x04, 0x00, 
 	0xfb, 0xde, 0xf4, 0x00, 0xb1, 0x8c, 0x64, 0x00, 0x40, 0x00, 0x08, 0x00, 0x3f, 0xff, 0xf0, 0x00, 
@@ -18,8 +18,8 @@ const unsigned char epd_bitmap_Hat_Frame0 [] PROGMEM = {
 	0x08, 0x00, 0x01, 0x00, 0x08, 0x00, 0x02, 0x00, 0x04, 0x00, 0x02, 0x00, 0x04, 0xcf, 0x32, 0x00, 
 	0x04, 0xd1, 0x52, 0x00, 0x05, 0x20, 0x94, 0x00, 0x02, 0x00, 0x08, 0x00
 };
-// 'Hat_Frame1', 27x27px
-const unsigned char epd_bitmap_Hat_Frame1 [] PROGMEM = {
+// 'Dance_Frame1', 27x27px
+const unsigned char epd_bitmap_Dance_Frame1 [] PROGMEM = {
 	0x00, 0x60, 0x00, 0x00, 0x00, 0x90, 0x00, 0x00, 0x01, 0x08, 0x00, 0x00, 0x01, 0x08, 0x00, 0x00, 
 	0x02, 0x04, 0x00, 0x00, 0x02, 0x04, 0x00, 0x00, 0x7d, 0x6b, 0xf8, 0x00, 0x80, 0x00, 0x04, 0x00, 
 	0xfb, 0xde, 0xf4, 0x00, 0xb1, 0x8c, 0x64, 0x00, 0x40, 0x00, 0x08, 0x00, 0x3f, 0xff, 0xf0, 0x00, 
@@ -29,12 +29,14 @@ const unsigned char epd_bitmap_Hat_Frame1 [] PROGMEM = {
 	0x05, 0x49, 0x52, 0x00, 0x02, 0x50, 0x94, 0x00, 0x00, 0x20, 0x08, 0x00
 };
 // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 256)
-const int epd_bitmap_Hat_allArray_LEN = 2;
-const unsigned char* epd_bitmap_Hat_allArray[2] = {
-	epd_bitmap_Hat_Frame0,
-	epd_bitmap_Hat_Frame1
+const int epd_bitmap_Dance_allArray_LEN = 2;
+const int bitmap_Dance_height = 27;
+const int bitmap_Dance_width = 27;
+const unsigned char* epd_bitmap_Dance_allArray[2] = {
+	epd_bitmap_Dance_Frame0,
+	epd_bitmap_Dance_Frame1
 };
-//===================================================================== Anoying Dog Sleep Frames
+//==================================================================================================== Anoying Dog Sleep Frames
 // 'Frame0', 26x12px
 const unsigned char epd_bitmap_Sleep_Frame0 [] PROGMEM = {
 	0x00, 0x3f, 0x00, 0x00, 0x0f, 0xc0, 0xe0, 0x00, 0x10, 0x00, 0x18, 0x00, 0x20, 0x40, 0x04, 0x00, 
@@ -49,11 +51,13 @@ const unsigned char epd_bitmap_Sleep_Frame1 [] PROGMEM = {
 };
 // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 128)
 const int epd_bitmap_Sleep_allArray_LEN = 2;
+const int bitmap_Sleep_height = 12;
+const int bitmap_Sleep_width = 26;
 const unsigned char* epd_bitmap_Sleep_allArray[2] = {
 	epd_bitmap_Sleep_Frame0,
 	epd_bitmap_Sleep_Frame1
 };
-//===================================================================== Anoying Dog Bone Frames
+//==================================================================================================== Anoying Dog Bone Frames
 // 'Frame0', 34x15px
 const unsigned char epd_bitmap_Bone_Frame0 [] PROGMEM = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2f, 0x40, 0x00, 0x00, 0x00, 
@@ -80,21 +84,23 @@ const unsigned char epd_bitmap_Bone_Frame2 [] PROGMEM = {
 };
 // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 288)
 const int epd_bitmap_Bone_allArray_LEN = 3;
+const int bitmap_Bone_height = 15;
+const int bitmap_Bone_width = 34;
 const unsigned char* epd_bitmap_Bone_allArray[3] = {
 	epd_bitmap_Bone_Frame0,
 	epd_bitmap_Bone_Frame1,
 	epd_bitmap_Bone_Frame2
 };
-//===================================================================== Anoying Dog Walk Frames
+//==================================================================================================== Anoying Dog Walk Frames
 // 'Frame0', 23x18px
-const unsigned char epd_bitmap_Walk_Frame0 [] PROGMEM = {
+const unsigned char epd_bitmap_WalkLeft_Frame0 [] PROGMEM = {
 	0x2f, 0x40, 0x00, 0x50, 0xa0, 0x00, 0x40, 0x20, 0x00, 0x40, 0x10, 0x00, 0x92, 0x18, 0x00, 0x80, 
 	0x06, 0x00, 0x8c, 0x01, 0xfc, 0xa9, 0x00, 0x02, 0x9e, 0x00, 0x1c, 0x80, 0x00, 0x10, 0x80, 0x00, 
 	0x10, 0x80, 0x00, 0x10, 0x80, 0x00, 0x20, 0x40, 0x00, 0x20, 0x4c, 0xf3, 0x20, 0x4d, 0x15, 0x20, 
 	0x52, 0x09, 0x40, 0x20, 0x00, 0x80
 };
 // 'Frame1', 23x18px
-const unsigned char epd_bitmap_Walk_Frame1 [] PROGMEM = {
+const unsigned char epd_bitmap_WalkLeft_Frame1 [] PROGMEM = {
 	0x2f, 0x40, 0x00, 0x50, 0xa0, 0x00, 0x40, 0x20, 0x00, 0x40, 0x10, 0x20, 0x92, 0x18, 0x50, 0x80, 
 	0x06, 0x50, 0x8c, 0x01, 0xd0, 0xa9, 0x00, 0x10, 0x9e, 0x00, 0x10, 0x80, 0x00, 0x10, 0x80, 0x00, 
 	0x10, 0x80, 0x00, 0x10, 0x80, 0x00, 0x20, 0x40, 0x00, 0x20, 0x4c, 0xf3, 0x20, 0x54, 0x93, 0x40, 
@@ -102,37 +108,222 @@ const unsigned char epd_bitmap_Walk_Frame1 [] PROGMEM = {
 };
 // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 160)
 const int epd_bitmap_Walk_allArray_LEN = 2;
-const unsigned char* epd_bitmap_Walk_allArray[2] = {
-	epd_bitmap_Walk_Frame0,
-	epd_bitmap_Walk_Frame1
+const int bitmap_Walk_height = 18;
+const int bitmap_Walk_width = 23;
+const unsigned char* epd_bitmap_WalkLeft_allArray[2] = {
+	epd_bitmap_WalkLeft_Frame0,
+	epd_bitmap_WalkLeft_Frame1
 };
-//===================================================================== Dance()
-void Dance(int x, int y){
-  display.clearDisplay();
-  display.drawBitmap(x,y, epd_bitmap_Hat_allArray[0],27,27, WHITE);
-  display.display();
-  delay(200);
-  display.clearDisplay();
-  display.drawBitmap(x,y, epd_bitmap_Hat_allArray[1],27,27, WHITE);
-  display.display();
-  delay(200);
-}
+// 'Frame0', 23x18px
+const unsigned char epd_bitmap_WalkRight_Frame0 [] PROGMEM = {
+	0x00, 0x05, 0xe8, 0x00, 0x0a, 0x14, 0x00, 0x08, 0x04, 0x00, 0x10, 0x04, 0x00, 0x30, 0x92, 0x00, 
+	0xc0, 0x02, 0x7f, 0x00, 0x62, 0x80, 0x01, 0x2a, 0x70, 0x00, 0xf2, 0x10, 0x00, 0x02, 0x10, 0x00, 
+	0x02, 0x10, 0x00, 0x02, 0x08, 0x00, 0x02, 0x08, 0x00, 0x04, 0x09, 0x9e, 0x64, 0x09, 0x51, 0x64, 
+	0x05, 0x20, 0x94, 0x02, 0x00, 0x08
+};
+// 'Frame1', 23x18px
+const unsigned char epd_bitmap_WalkRight_Frame1 [] PROGMEM = {
+	0x00, 0x05, 0xe8, 0x00, 0x0a, 0x14, 0x00, 0x08, 0x04, 0x08, 0x10, 0x04, 0x14, 0x30, 0x92, 0x14, 
+	0xc0, 0x02, 0x17, 0x00, 0x62, 0x10, 0x01, 0x2a, 0x10, 0x00, 0xf2, 0x10, 0x00, 0x02, 0x10, 0x00, 
+	0x02, 0x10, 0x00, 0x02, 0x08, 0x00, 0x02, 0x08, 0x00, 0x04, 0x09, 0x9e, 0x64, 0x05, 0x92, 0x54, 
+	0x02, 0x51, 0x48, 0x00, 0x20, 0x80
+};
+// Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 160)
+const int epd_bitmap_WalkRight_allArray_LEN = 2;
+const unsigned char* epd_bitmap_WalkRight_allArray[2] = {
+	epd_bitmap_WalkRight_Frame0,
+	epd_bitmap_WalkRight_Frame1
+};
+//==================================================================================================== Variablen
+int rndXOld = 0;
+int rndYOld = 0;
+unsigned long Time = 0; //Time for random Positon in idle
+bool AnimationDone = true;
+//==================================================================================================== Bone()
+void Bone(int x, int y, int Amount){
 
+	for(int i = 0; i < Amount; i++)
+	{
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[0],34,15, WHITE);
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[1],34,15, WHITE);
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[0],34,15, WHITE);
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[1],34,15, WHITE);
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[0],34,15, WHITE);
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[1],34,15, WHITE);
+		display.display();
+		delay(200);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[2],34,15, WHITE);
+		display.display();
+		delay(200);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Bone_allArray[1],34,15, WHITE);
+		display.display();
+		delay(50);
+	}
+}
+//==================================================================================================== Sleep()
+void Sleep(int x, int y, int Amount){
+	
+	for(int i = 0; i < Amount; i++)
+	{
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Sleep_allArray[0],26,12, WHITE);
+		display.display();
+		delay(1000);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Sleep_allArray[1],26,12, WHITE);
+		display.display();
+		delay(1000);
+	}
+}
+//==================================================================================================== Walk()
+void Walk(int xOld, int yOld, int xNew, int yNew){
+
+	char dir;
+	bool step = 0;
+	int x = xOld;
+	int y = yOld;
+	int xdif = xNew - xOld;
+		if(xdif >= 0)
+			dir = 'R';
+		else dir = 'L';
+
+	if(dir =='L')
+	{
+		while (x > xNew)
+		{
+			
+			y = (double(yNew) - double(yOld))/(double(xNew) - double(xOld)) * (double(x) - double(xOld)) + yOld;
+			if(!step)
+			{
+				display.clearDisplay();
+				display.drawBitmap(x,y, epd_bitmap_WalkLeft_allArray[0],23,18, WHITE);
+				display.display();
+				delay(50);
+			}
+			if(step)
+			{
+				display.clearDisplay();
+				display.drawBitmap(x,y, epd_bitmap_WalkLeft_allArray[1],23,18, WHITE);
+				display.display();
+				delay(50);
+			}
+			step = !step;
+			if((-xdif) > 30)
+				x = x - 3;
+			else x = x - 1;
+		}
+	}
+	if(dir == 'R')
+	{
+		while (x < xNew)
+		{
+			y = (double(yNew) - double(yOld))/(double(xNew) - double(xOld)) * (double(x) - double(xOld)) + yOld;
+			if(!step)
+			{
+				display.clearDisplay();
+				display.drawBitmap(x,y, epd_bitmap_WalkRight_allArray[0],23,18, WHITE);
+				display.display();
+				delay(50);
+			}
+			if(step)
+			{
+				display.clearDisplay();
+				display.drawBitmap(x,y, epd_bitmap_WalkRight_allArray[1],23,18, WHITE);
+				display.display();
+				delay(50);
+			}
+			step = !step;
+			if(xdif > 30)
+				x = x + 3;
+			else x = x + 1;
+		}
+	}
+}
+//==================================================================================================== Dance()
+void Dance(int x, int y, int Amount){
+
+	for(int i = 0; i < Amount; i++)
+	{
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Dance_allArray[0],27,27, WHITE);
+		display.display();
+		delay(100);
+		display.clearDisplay();
+		display.drawBitmap(x,y, epd_bitmap_Dance_allArray[1],27,27, WHITE);
+		display.display();
+		delay(100);
+	}
+}
+//==================================================================================================== Idle()
+void Idle(){
+
+	int rndX, rndY;
+	byte rndA;
+	if((millis() - Time >= 5000) && AnimationDone)
+		{
+			rndX = random(1, display.width()-bitmap_Bone_width);
+			rndY = random(1, display.height()-bitmap_Dance_height);
+			Time = millis();
+			rndA = random(0, 100);
+			Serial.println(rndA);
+		}
+	Walk(rndXOld, rndYOld, rndX, rndY);
+	rndXOld = rndX;
+	rndYOld = rndY;
+	
+	AnimationDone = false;
+		
+	if(rndA < 70)
+		AnimationDone = true;
+	else if((rndA >= 70) && (rndA < 80))
+	{
+		Sleep(rndXOld, rndYOld, 5);
+		AnimationDone = true;
+	}
+	else if((rndA >= 80) && (rndA < 90))
+	{
+		Dance(rndXOld, rndYOld, 20);
+		AnimationDone = true;
+	}
+	else if((rndA >= 90))
+	{
+		Bone(rndXOld, rndYOld, 5);
+		AnimationDone = true;
+	}
+}
+//==================================================================================================== Setup()
 void setup() {
- Serial.begin(9600);  //initializing Serialport
+
+  Serial.begin(9600);  //initializing Serialport
   Serial.write("Initializing Display");
   display.begin(SH1106_SWITCHCAPVCC, 0x3C);   //initializing display, 
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.print("PP World!");
+  display.print("Helo World!");
   display.display();
   delay(1000);
 }
-
+//==================================================================================================== Loop()
 void loop() {
-  int x = random(0, 128-27);
-  int y = random(0, 64-27);
-  Dance(x,y);
+	Idle();
 }
